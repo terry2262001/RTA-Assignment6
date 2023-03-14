@@ -91,6 +91,20 @@ private ViewRegionModel viewRegionModel;
 
         regionInfoAdapter = new RegionInfoAdapter(getContext(), regionList,this);
         rvList.setAdapter(regionInfoAdapter);
+        rvList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition()+1;
+
+                if (lastVisibleItemPosition == 10){
+                    viewRegionModel.setLimit(20);
+                    viewRegionModel.getDatafromAPI();
+                    System.out.println(viewRegionModel.getLimit());
+                    regionInfoAdapter.notifyDataSetChanged();
+                }
+            }
+        });
 
 
         return view ;
