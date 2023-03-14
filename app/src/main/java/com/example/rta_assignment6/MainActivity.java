@@ -38,11 +38,6 @@ TabLayout tabLayout;
 
     }
 
-//    public void sendData(RegionService message) {
-//        String tag = "android:switcher:" + R.id.vpAdd + ":" + 1;
-//        HomeFragment f = (HomeFragment) getSupportFragmentManager().findFragmentByTag(tag);
-//        f.displayReceivedData(message);
-//    }
 
     @Override
     public void sendData(RegionInfo regionInfo) {
