@@ -51,35 +51,7 @@ private ViewRegionModel viewRegionModel;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        queue = Volley.newRequestQueue(getContext());
-//        StringRequest stringRequest = new StringRequest(
-//                Request.Method.GET,
-//                "https://rtlab02.rtworkspace.com/api/query/datamodel?dm_name=test_ucdp_ged181&token=secret&limit=10&offset=0",
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        Gson gson = new GsonBuilder().create();
-//                        //      System.out.println(response);
-//                        Type regionInfoListType = new TypeToken<List<RegionInfo>>(){}.getType();
-//                        List<RegionInfo> regionInfoListfromGson = gson.fromJson(response, regionInfoListType);
-//                        regionList.addAll(regionInfoListfromGson);
-//                        regionInfoAdapter.notifyDataSetChanged();
-//
-//
-//
-//
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-//
-//                    }
-//                }
-//
-//        );
-//        queue.add(stringRequest);
+
          viewRegionModel = new ViewRegionModel(getContext());
         // Create the observer which updates the UI.
         viewRegionModel.getDatafromAPI();
