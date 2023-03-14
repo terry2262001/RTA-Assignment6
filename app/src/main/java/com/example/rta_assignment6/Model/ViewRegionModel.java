@@ -24,14 +24,15 @@ public class ViewRegionModel extends ViewModel {
     private MutableLiveData<List<RegionInfo>> myData = new MutableLiveData<>();
     RequestQueue queue;
     private Context context;
-    private  int limit = 10;
+    private  int limit ;
 
     public ViewRegionModel(Context context) {
         this.context = context;
     }
 
 
-    public Collection<? extends RegionInfo> getDatafromAPI(){
+    public Collection<? extends RegionInfo> getDatafromAPI(int limit ){
+        System.out.println("----> limit"+ limit);
         queue = Volley.newRequestQueue(context);
         StringRequest stringRequest = new StringRequest(
                 Request.Method.GET,
@@ -66,6 +67,14 @@ public class ViewRegionModel extends ViewModel {
 
     public void setMyData(MutableLiveData<List<RegionInfo>> myData) {
         this.myData = myData;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
     }
 }
 

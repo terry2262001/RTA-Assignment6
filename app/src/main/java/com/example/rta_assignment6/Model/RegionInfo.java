@@ -9,22 +9,13 @@ public class RegionInfo implements Serializable {
     private String where_coordinates;
     private String latitude;
     private String longitude;
-//@SerializedName("country_id")
-//public String country_id;
-//    @SerializedName("where_coordinates")
-//    public String where_coordinates;
-//
-//    @SerializedName("region")
-//    public String region;
-//
-//    @SerializedName("latitude")
-//    public String latitude;
-//
-//    @SerializedName("where_coordinates")
-//    public String longitude;
 
 
     public RegionInfo() {
+    }
+    public RegionInfo(String region,String where_coordinates ) {
+        this.region = region;
+        this.where_coordinates = where_coordinates;
     }
 
     public RegionInfo(String country_id, String region, String where_coordinates, String latitude, String longitude) {

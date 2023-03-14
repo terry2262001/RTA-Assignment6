@@ -13,17 +13,21 @@ import com.example.rta_assignment6.Model.RegionInfo;
 import com.example.rta_assignment6.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RegionInfoAdapter extends RecyclerView.Adapter<RegionInfoAdapter.RegionInfoVH>{
     private Context mContext;
-    private ArrayList<RegionInfo> regionInfoList;
+    private List<RegionInfo> regionInfoList;
     onItemClickListener listener;
+    private  boolean isLoadingAdd;
+    private  static  final  int TYPE_LOADING  = 2;
+    private  static  final  int TYPE_ITEM  = 1;
 
-    public RegionInfoAdapter(Context mContext, ArrayList<RegionInfo> regionInfoList) {
-        this.mContext = mContext;
-        this.regionInfoList = regionInfoList;
-    }
-    public RegionInfoAdapter(Context mContext, ArrayList<RegionInfo> regionInfoList,onItemClickListener listener) {
+
+
+
+
+    public RegionInfoAdapter(Context mContext, List<RegionInfo> regionInfoList,onItemClickListener listener) {
         this.mContext = mContext;
         this.regionInfoList = regionInfoList;
         this.listener = listener;
@@ -38,10 +42,18 @@ public class RegionInfoAdapter extends RecyclerView.Adapter<RegionInfoAdapter.Re
     }
 
     @Override
+    public int getItemViewType(int position) {
+        if (regionInfoList != null  && position == regionInfoList.size() && isLoadingAdd){
+            return TYPE_LOADING;
+        }
+        return TYPE_ITEM;
+    }
+
+    @Override
     public void onBindViewHolder(@NonNull RegionInfoVH holder, int position) {
         RegionInfo regionInfo = regionInfoList.get(position);
 
-        holder.tvRegion.setText(regionInfo.getRegion());
+        holder.tvRegion.setText(regionInfo.getRegion() + position);
         holder.tvWhere_coordinates.setText(regionInfo.getWhere_coordinates());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +90,22 @@ public class RegionInfoAdapter extends RecyclerView.Adapter<RegionInfoAdapter.Re
     }
     public interface onItemClickListener{
         void OnItemClick( RegionInfo regionInfo, int pos);
+    }
+    public void addFooterLoanding(){
+        isLoadingAdd = true;
+        regionInfoList.add(new RegionInfo());
+    }
+    public void removeFooterLoanding (){
+        isLoadingAdd = false;
+        int position = regionInfoList.size() -1;
+        RegionInfo info = regionInfoList.get(position);
+        if(info != null){
+            regionInfoList.remove(position);
+            notifyItemRemoved(position);
+        }
+
+
+
     }
 }
 

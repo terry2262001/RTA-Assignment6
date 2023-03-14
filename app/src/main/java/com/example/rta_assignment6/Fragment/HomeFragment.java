@@ -2,6 +2,7 @@ package com.example.rta_assignment6.Fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Region;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -14,6 +15,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,22 +27,21 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.rta_assignment6.DataListener;
+import com.example.rta_assignment6.Model.MyItem;
 import com.example.rta_assignment6.Model.RegionInfo;
-import com.example.rta_assignment6.Model.ViewRegionModel;
 import com.example.rta_assignment6.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
+import com.google.maps.android.clustering.Cluster;
+import com.google.maps.android.clustering.ClusterManager;
+import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 
-import java.io.Serializable;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,13 +53,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Locati
     double La, Long;
     RequestQueue queue;
     ArrayList<RegionInfo> regionList;
-    Location location;
-    String a = "";
-    private boolean mIsDataLoaded = false;
-
-
-    private boolean isDataReceived = false;
-    ViewRegionModel viewRegionModel;
+    DataListener dataListener;
+    private ClusterManager<MyItem> clusterManager;
 
 
     @Override
@@ -69,6 +65,24 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Locati
 
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        if (context instanceof DataListener) {
+            dataListener = (DataListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement DataListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        dataListener = null;
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,36 +105,63 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Locati
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
-        viewRegionModel = new ViewRegionModel(getContext());
-        // Create the observer which updates the UI.
-        viewRegionModel.getDatafromAPI();
-        viewRegionModel.getMyData().observe(this, new Observer<List<RegionInfo>>() {
-            @Override
-            public void onChanged(List<RegionInfo> regionInfos) {
-                for (RegionInfo info : regionInfos) {
-
-                    mMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(Double.parseDouble(info.getLatitude()), Double.parseDouble(info.getLongitude())))
-                            .title(info.getRegion())
-                            .snippet(info.getWhere_coordinates()));
-                }
-
-            }
-        });
-
-
+        clusterManager = new ClusterManager<MyItem>(getContext(), mMap);
+        setUpClusterer(clusterManager, mMap);
 
     }
+
+
 
 
     public void displayReceivedData(RegionInfo region) {
         loadRegion = region;
         La = Double.parseDouble(loadRegion.getLatitude());
-        System.out.println(La + "==============>");
+
         Long = Double.parseDouble(loadRegion.getLongitude());
 
     }
 
 
+    public void updateData(List<RegionInfo> newdata) {
+
+        regionList.clear();
+        clusterManager.clearItems();
+
+        regionList.addAll(newdata);
+        // addMarker();
+        System.out.println("->>>>>>>>>>home----"+regionList.size());
+
+        addItems();
+
+
+    }
+
+    private void setUpClusterer(ClusterManager<MyItem> clusterManager, GoogleMap map) {
+        // Position the map.
+
+       map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(39.21966,71.19155 ),4));
+
+
+        map.setOnCameraIdleListener(clusterManager);
+        map.setOnMarkerClickListener(clusterManager);
+
+        // Add cluster items (markers) to the cluster manager.
+        addItems();
+    }
+
+    private void addItems() {
+        for (RegionInfo info : regionList){
+            MyItem offsetItem = new MyItem(Double.parseDouble(info.getLatitude()),Double.parseDouble( info.getLongitude()), info.getRegion(), info.getWhere_coordinates());
+            clusterManager.addItem(offsetItem);
+
+        }
+
+
+
+
+
+    }
+
 
 }
+
