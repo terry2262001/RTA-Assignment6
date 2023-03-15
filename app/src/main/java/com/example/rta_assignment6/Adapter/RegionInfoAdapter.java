@@ -53,7 +53,7 @@ public class RegionInfoAdapter extends RecyclerView.Adapter<RegionInfoAdapter.Re
     public void onBindViewHolder(@NonNull RegionInfoVH holder, int position) {
         RegionInfo regionInfo = regionInfoList.get(position);
 
-        holder.tvRegion.setText(regionInfo.getRegion() + position);
+        holder.tvRegion.setText(regionInfo.getRegion() +( position+1));
         holder.tvWhere_coordinates.setText(regionInfo.getWhere_coordinates());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,21 +91,6 @@ public class RegionInfoAdapter extends RecyclerView.Adapter<RegionInfoAdapter.Re
     public interface onItemClickListener{
         void OnItemClick( RegionInfo regionInfo, int pos);
     }
-    public void addFooterLoanding(){
-        isLoadingAdd = true;
-        regionInfoList.add(new RegionInfo());
-    }
-    public void removeFooterLoanding (){
-        isLoadingAdd = false;
-        int position = regionInfoList.size() -1;
-        RegionInfo info = regionInfoList.get(position);
-        if(info != null){
-            regionInfoList.remove(position);
-            notifyItemRemoved(position);
-        }
 
-
-
-    }
 }
 

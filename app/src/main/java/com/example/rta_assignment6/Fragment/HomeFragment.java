@@ -126,33 +126,39 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Locati
 
         regionList.clear();
         clusterManager.clearItems();
-
         regionList.addAll(newdata);
-        // addMarker();
         System.out.println("->>>>>>>>>>home----"+regionList.size());
 
-        addItems();
+        addItems(mMap);
 
 
     }
 
     private void setUpClusterer(ClusterManager<MyItem> clusterManager, GoogleMap map) {
-        // Position the map.
 
-       map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(39.21966,71.19155 ),4));
+//       map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(39.21966,71.19155 ),1));
+//
+//
+//        map.setOnCameraIdleListener(clusterManager);
+//        map.setOnMarkerClickListener(clusterManager);
 
-
-        map.setOnCameraIdleListener(clusterManager);
-        map.setOnMarkerClickListener(clusterManager);
-
-        // Add cluster items (markers) to the cluster manager.
-        addItems();
+        addItems(map);
     }
 
-    private void addItems() {
+    private void addItems( GoogleMap map) {
         for (RegionInfo info : regionList){
+
             MyItem offsetItem = new MyItem(Double.parseDouble(info.getLatitude()),Double.parseDouble( info.getLongitude()), info.getRegion(), info.getWhere_coordinates());
             clusterManager.addItem(offsetItem);
+            if (regionList.size() > 0) {
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(offsetItem.getPosition(), 10));
+            } else {
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(39.21966, 71.19155), 1));
+            }
+
+
+            map.setOnCameraIdleListener(clusterManager);
+            map.setOnMarkerClickListener(clusterManager);
 
         }
 

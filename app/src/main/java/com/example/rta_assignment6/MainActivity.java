@@ -51,7 +51,6 @@ TabLayout tabLayout;
 
 
         viewPager = (ViewPager) findViewById(R.id.vpAdd);
-        // viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),regionList);
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         viewPager.setAdapter(viewPagerAdapter);

@@ -24,7 +24,6 @@ public class ViewRegionModel extends ViewModel {
     private MutableLiveData<List<RegionInfo>> myData = new MutableLiveData<>();
     RequestQueue queue;
     private Context context;
-    private  int limit ;
 
     public ViewRegionModel(Context context) {
         this.context = context;
@@ -36,7 +35,7 @@ public class ViewRegionModel extends ViewModel {
         queue = Volley.newRequestQueue(context);
         StringRequest stringRequest = new StringRequest(
                 Request.Method.GET,
-                "https://rtlab02.rtworkspace.com/api/query/datamodel?dm_name=test_ucdp_ged181&token=secret&limit="+this.limit+"&offset=0",
+                "https://rtlab02.rtworkspace.com/api/query/datamodel?dm_name=test_ucdp_ged181&token=secret&limit="+limit+"&offset=0",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -67,14 +66,6 @@ public class ViewRegionModel extends ViewModel {
 
     public void setMyData(MutableLiveData<List<RegionInfo>> myData) {
         this.myData = myData;
-    }
-
-    public int getLimit() {
-        return limit;
-    }
-
-    public void setLimit(int limit) {
-        this.limit = limit;
     }
 }
 

@@ -14,10 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.example.rta_assignment6.Adapter.RegionInfoAdapter;
 import com.example.rta_assignment6.DataListener;
@@ -51,6 +53,8 @@ public class ListFragment extends Fragment  implements RegionInfoAdapter.onItemC
     private boolean isLastPage ;
     int totalPage = 100;
     int currentPage = 1;
+    private ProgressBar progressBar;
+
 
 
 
@@ -78,13 +82,6 @@ public class ListFragment extends Fragment  implements RegionInfoAdapter.onItemC
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
-
-
-
-
     }
 
     @Override
@@ -92,15 +89,10 @@ public class ListFragment extends Fragment  implements RegionInfoAdapter.onItemC
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
         rvList = view.findViewById(R.id.rvList);
-
-
-
-
-
         MainActivity mainActivity = (MainActivity) getActivity();
-
         viewPager = mainActivity.findViewById(R.id.vpAdd);
         tabLayout = mainActivity.findViewById(R.id.tabLayout);
+        progressBar = view.findViewById(R.id.progressBar);
 
 
 
@@ -117,27 +109,12 @@ public class ListFragment extends Fragment  implements RegionInfoAdapter.onItemC
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                int lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition()+1;
-
-                if (lastVisibleItemPosition == 10){
-                    viewRegionModel.setLimit(20);
-                    viewRegionModel.getDatafromAPI();
-                    System.out.println(viewRegionModel.getLimit());
-                    regionInfoAdapter.notifyDataSetChanged();
-                }
-            }
-        });
-
-    //    setFirstData();
-              rvList.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                int lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition()+1;
 
                 if (!recyclerView.canScrollVertically(1)){
-                    limit +=10;
-                    ((MainActivity) getActivity()).getViewRegionModel().getDatafromAPI(limit);
+                    progressBar.setVisibility(View.VISIBLE);
+                    loadNexpage();
+
+
 
                 }
             }
@@ -154,9 +131,8 @@ public class ListFragment extends Fragment  implements RegionInfoAdapter.onItemC
     @Override
     public void OnItemClick(RegionInfo region, int pos) {
         SM.sendData(region);
-
-
         viewPager.setCurrentItem(1);
+
 
 
 
@@ -166,18 +142,25 @@ public class ListFragment extends Fragment  implements RegionInfoAdapter.onItemC
     public void updateData(List<RegionInfo> newData) {
         regionList.clear();
         regionList.addAll(newData);
-
-        setFirstData();
-    }
-    private void setFirstData(){
-        System.out.println("------>>>>>>"+regionList.size());
         regionInfoAdapter.notifyDataSetChanged();
+    }
 
-        if (currentPage  < totalPage ){
-            regionInfoAdapter.addFooterLoanding();
-        }else{
-            isLastPage = true;
-        }
+    private void loadNexpage(){
+        limit +=10;
+        ((MainActivity) getActivity()).getViewRegionModel().getDatafromAPI(limit);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                progressBar.setVisibility(View.GONE);
+
+
+
+            }
+        },2000);
+
+
     }
 
     public interface SendMessage {
@@ -196,14 +179,7 @@ public class ListFragment extends Fragment  implements RegionInfoAdapter.onItemC
 
     }
 
-    private  List<RegionInfo> getRegionList(){
-        List<RegionInfo> list  = new ArrayList<>();
-        for(int i = 1 ; i <=  10; i++){
-            list.add(new RegionInfo("Usre"+i,"12312312"));
-        }
-        return  list;
 
-    }
 
 
 }
