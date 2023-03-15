@@ -51,6 +51,7 @@ public class ListFragment extends Fragment  implements RegionInfoAdapter.onItemC
     private boolean isLastPage ;
     int totalPage = 100;
     int currentPage = 1;
+    ViewRegionModel viewRegionModel;
 
 
 
@@ -117,31 +118,15 @@ public class ListFragment extends Fragment  implements RegionInfoAdapter.onItemC
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                int lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition()+1;
 
-                if (lastVisibleItemPosition == 10){
-                    viewRegionModel.setLimit(20);
-                    viewRegionModel.getDatafromAPI();
-                    System.out.println(viewRegionModel.getLimit());
-                    regionInfoAdapter.notifyDataSetChanged();
+                if (!recyclerView.canScrollVertically(1)){
+                    limit +=10;
+                    ((MainActivity) getActivity()).getViewRegionModel().getDatafromAPI(limit);
                 }
             }
         });
 
     //    setFirstData();
-              rvList.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                int lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition()+1;
-
-                if (!recyclerView.canScrollVertically(1)){
-                    limit +=10;
-                    ((MainActivity) getActivity()).getViewRegionModel().getDatafromAPI(limit);
-
-                }
-            }
-        });
 
 
 
@@ -154,7 +139,6 @@ public class ListFragment extends Fragment  implements RegionInfoAdapter.onItemC
     @Override
     public void OnItemClick(RegionInfo region, int pos) {
         SM.sendData(region);
-
 
         viewPager.setCurrentItem(1);
 
@@ -196,14 +180,7 @@ public class ListFragment extends Fragment  implements RegionInfoAdapter.onItemC
 
     }
 
-    private  List<RegionInfo> getRegionList(){
-        List<RegionInfo> list  = new ArrayList<>();
-        for(int i = 1 ; i <=  10; i++){
-            list.add(new RegionInfo("Usre"+i,"12312312"));
-        }
-        return  list;
 
-    }
 
 
 }
