@@ -26,37 +26,9 @@ public abstract class  PanigationScrollListener extends RecyclerView.OnScrollLis
         }
         if(!recyclerView.canScrollVertically(1)){
             loadMoreItems();
-            System.out.println("-------------->last"+ "----123123123");
-
 
         }
-//        if (totalItemCount >7 &&)
-//
-//        if (last - firstVisbleitemPosition == 6){
-//            //loadMoreItems();
-//        }
-        System.out.println("-------------->visibleItemCount_______"+(visibleItemCount + firstVisbleitemPosition));
-        System.out.println("-------------->firstVisbleitemPosition"+firstVisbleitemPosition);
-        System.out.println("-------------->last"+ last);
 
-
-
-//        if ((visibleItemCount + firstVisbleitemPosition) >= totalItemCount && firstVisbleitemPosition >=4 ){
-//            loadMoreItems();
-//        }
-
-//         if (visibleItemCount >){
-//             loadMoreItems();
-//         }
-//        if(firstVisbleitemPosition >= 0 && (visibleItemCount + firstVisbleitemPosition) >= totalItemCount){
-//
-//            System.out.println("-------------->visibleItemCount"+visibleItemCount+"----goi lan "+i);
-//            System.out.println("-------------->totalItemCount"+totalItemCount+"----goi lan "+i);
-//            System.out.println("-------------->firstVisbleitemPosition"+firstVisbleitemPosition+"----goi lan "+i);
-//            System.out.println("-------------->firstVisbleitemPosition"+last+"----goi lan "+i);
-//
-//
-//
 //        }
     }
     public abstract void loadMoreItems();
