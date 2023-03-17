@@ -106,6 +106,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Locati
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
         clusterManager = new ClusterManager<MyItem>(getContext(), mMap);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+
         setUpClusterer(clusterManager, mMap);
 
     }
@@ -114,10 +116,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Locati
 
 
     public void displayReceivedData(RegionInfo region) {
-        loadRegion = region;
-        La = Double.parseDouble(loadRegion.getLatitude());
-
-        Long = Double.parseDouble(loadRegion.getLongitude());
+        System.out.print(region.toString());
 
     }
 
@@ -128,19 +127,12 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Locati
         clusterManager.clearItems();
         regionList.addAll(newdata);
         System.out.println("->>>>>>>>>>home----"+regionList.size());
-
         addItems(mMap);
 
 
     }
 
     private void setUpClusterer(ClusterManager<MyItem> clusterManager, GoogleMap map) {
-
-//       map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(39.21966,71.19155 ),1));
-//
-//
-//        map.setOnCameraIdleListener(clusterManager);
-//        map.setOnMarkerClickListener(clusterManager);
 
         addItems(map);
     }
