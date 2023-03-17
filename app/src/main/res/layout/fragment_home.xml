@@ -3,12 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.HomeFragment">
-    <TextView
-        android:paddingTop="200dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="tho"/>
+    tools:context=".fragment.HomeFragment">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/map"
@@ -17,7 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:paddingTop="200dp"
+        android:text="tho" />
 
 
 </RelativeLayout>

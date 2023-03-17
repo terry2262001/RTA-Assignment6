@@ -1,29 +1,33 @@
-package com.example.rta_assignment6.Adapter;
+package com.example.rta_assignment6.adapter;
 
-import android.graphics.Region;
-
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.rta_assignment6.Fragment.BlankFragment;
-import com.example.rta_assignment6.Fragment.HomeFragment;
-import com.example.rta_assignment6.Fragment.ListFragment;
-import com.example.rta_assignment6.Model.RegionInfo;
+import com.example.rta_assignment6.MainActivity;
+import com.example.rta_assignment6.fragment.HomeFragment;
+import com.example.rta_assignment6.fragment.ListFragment;
+import com.example.rta_assignment6.model.RegionInfo;
 
 import java.util.List;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
+    //    public ViewPagerAdapter(FragmentManager fm,OnAdapterCreatedListener listener) {
+//        super(fm);
+//    }
+    private ListFragment listFragment;
+    private HomeFragment homeFragment;
+
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
     }
-private List<RegionInfo> regions;
-public ViewPagerAdapter(FragmentManager fm, List<RegionInfo> regions) {
-    super(fm);
-    this.regions = regions;
-}
-
+//public ViewPagerAdapter(@NonNull FragmentManager fm) {
+//    super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+//    listFragment = new ListFragment();
+//    homeFragment = new HomeFragment();
+//}
 
 
     @Override
@@ -49,11 +53,14 @@ public ViewPagerAdapter(FragmentManager fm, List<RegionInfo> regions) {
             title = "List";
         } else if (position == 1) {
             title = "Map";
-        }else if (position == 2) {
+        } else if (position == 2) {
             title = "Blank";
         }
         return title;
     }
 
 
+    public interface OnAdapterCreatedListener {
+        void onAdapterCreated();
+    }
 }

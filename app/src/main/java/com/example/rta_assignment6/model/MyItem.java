@@ -1,4 +1,4 @@
-package com.example.rta_assignment6.Model;
+package com.example.rta_assignment6.model;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,13 +8,21 @@ import com.google.maps.android.clustering.ClusterItem;
 
 public class MyItem implements ClusterItem {
     private final LatLng position;
-    private final String title;
-    private final String snippet;
+    private RegionInfo regionInfo;
 
-    public MyItem(double lat, double lng, String title, String snippet) {
+
+    public MyItem(double lat, double lng, RegionInfo info) {
         position = new LatLng(lat, lng);
-        this.title = title;
-        this.snippet = snippet;
+        this.regionInfo = info;
+
+    }
+
+    public RegionInfo getRegionInfo() {
+        return regionInfo;
+    }
+
+    public void setRegionInfo(RegionInfo regionInfo) {
+        this.regionInfo = regionInfo;
     }
 
     @NonNull
@@ -26,14 +34,15 @@ public class MyItem implements ClusterItem {
     @Nullable
     @Override
     public String getTitle() {
-        return title;
+        return null;
     }
 
     @Nullable
     @Override
     public String getSnippet() {
-        return snippet;
+        return null;
     }
+
 
     @Nullable
     @Override
