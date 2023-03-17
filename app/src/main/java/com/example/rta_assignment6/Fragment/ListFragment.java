@@ -49,10 +49,6 @@ public class ListFragment extends Fragment  implements RegionInfoAdapter.onItemC
     SendMessage SM;
     int limit =10;
     DataListener dataListener;
-    private boolean isLoading ;
-    private boolean isLastPage ;
-    int totalPage = 100;
-    int currentPage = 1;
     private ProgressBar progressBar;
 
 
@@ -131,7 +127,7 @@ public class ListFragment extends Fragment  implements RegionInfoAdapter.onItemC
     @Override
     public void OnItemClick(RegionInfo region, int pos) {
         SM.sendData(region);
-        viewPager.setCurrentItem(1);
+       // viewPager.setCurrentItem(1);
 
 
 

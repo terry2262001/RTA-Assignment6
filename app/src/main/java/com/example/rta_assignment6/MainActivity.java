@@ -74,7 +74,7 @@ TabLayout tabLayout;
         HomeFragment fragment2 = (HomeFragment) getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.vpAdd + ":" + 1);
         if (fragment != null) {
             fragment.updateData(data);
-            fragment2.updateData(data);
+           fragment2.updateData(data);
         }
 
     }

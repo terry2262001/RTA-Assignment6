@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.example.rta_assignment6.Fragment.BlankFragment;
 import com.example.rta_assignment6.Fragment.HomeFragment;
 import com.example.rta_assignment6.Fragment.ListFragment;
 import com.example.rta_assignment6.Model.RegionInfo;
@@ -48,6 +49,8 @@ public ViewPagerAdapter(FragmentManager fm, List<RegionInfo> regions) {
             title = "List";
         } else if (position == 1) {
             title = "Map";
+        }else if (position == 2) {
+            title = "Blank";
         }
         return title;
     }

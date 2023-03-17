@@ -53,8 +53,17 @@ public class RegionInfoAdapter extends RecyclerView.Adapter<RegionInfoAdapter.Re
     public void onBindViewHolder(@NonNull RegionInfoVH holder, int position) {
         RegionInfo regionInfo = regionInfoList.get(position);
 
-        holder.tvRegion.setText(regionInfo.getRegion() +( position+1));
-        holder.tvWhere_coordinates.setText(regionInfo.getWhere_coordinates());
+
+        if (regionInfo.getRegion().isEmpty()) {
+            holder.tvRegion.setText("- No data -");
+        } else {
+            holder.tvRegion.setText(regionInfo.getRegion() + (position + 1));
+        }
+        if (regionInfo.getWhere_coordinates().isEmpty()) {
+            holder.tvWhere_coordinates.setText("- No data -");
+        } else {
+            holder.tvWhere_coordinates.setText(regionInfo.getWhere_coordinates());
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
