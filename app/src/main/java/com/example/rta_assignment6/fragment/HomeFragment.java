@@ -205,7 +205,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Locati
             WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
             layoutParams.copyFrom(window.getAttributes());
             layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
-            layoutParams.height = 500;
+            layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
             layoutParams.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
             window.setAttributes(layoutParams);
         }
