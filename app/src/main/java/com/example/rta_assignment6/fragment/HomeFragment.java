@@ -194,7 +194,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Locati
         tvConflict_name.setText(item.getRegionInfo().getConflict_name());
         tvCountry.setText("Country: "+item.getRegionInfo().getCountry());
         tvsource_article.setText(item.getRegionInfo().getSource_article());
-        tvRegion.setText(item.getRegionInfo().getRegion());
+        tvRegion.setText("Region: "+item.getRegionInfo().getRegion());
         tvWhere_coordinates.setText(item.getRegionInfo().getWhere_coordinates());
 
 
