@@ -127,7 +127,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Locati
         }
 
         regionList.addAll(newdata);
-        System.out.println("->>>>>>>>>>home----"+regionList.size());
+        System.out.println("->>>>>>>>>>----"+regionList.size());
         addItems(mMap);
         isDataReady = true;
 
@@ -181,11 +181,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Locati
         // Tạo Dialog để hiển thị thông tin chi tiết của marker
         Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.item_infor);
-        // Cập nhật thông tin trong item_layout
-//        TextView titleTextView = dialog.findViewById(R.id.tvRegion);
-//        titleTextView.setText(item.getRegionInfo().getRegion());
-//        TextView snippetTextView = dialog.findViewById(R.id.tvWhere_coordinates);
-//        snippetTextView.setText(item.getRegionInfo().getWhere_coordinates());
         TextView tvId,tvConflict_name,tvRegion,tvCountry,tvWhere_coordinates,tvsource_article ;
 
         tvId = dialog.findViewById(R.id.tvId);
@@ -210,12 +205,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Locati
             WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
             layoutParams.copyFrom(window.getAttributes());
             layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
-            layoutParams.height = 400;
+            layoutParams.height = 500;
             layoutParams.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
             window.setAttributes(layoutParams);
         }
 
-        // Hiển thị dialog
         dialog.show();
     }
 

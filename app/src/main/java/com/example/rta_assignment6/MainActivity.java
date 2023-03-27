@@ -160,10 +160,14 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Send
         viewRegionLocalModel.getPaging(10, offset).observe(MainActivity.this, new Observer<List<RegionInfo>>() {
             @Override
             public void onChanged(List<RegionInfo> regionInfoList) {
-
+                int sizeOld = regionList.size();
                 regionList.addAll(regionInfoList);
-                Log.d("thongu_11", regionList.toString());
-               onDataReceived(regionList);
+                int sizeNew = regionList.size();
+                if(sizeOld <sizeNew){
+                    onDataReceived(regionList);
+
+                }
+
 
             }
         });
@@ -172,48 +176,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Send
     public void loalDataFromAPI(int offset) {
         Log.d("thongu_daa_1api", String.valueOf(offset));
 
-//        viewRegionModel.getDataFromApiAndInsertToDb1(offset).observe(MainActivity.this, new Observer<List<RegionInfo>>() {
-//            @Override
-//            public void onChanged(List<RegionInfo> regionInfos) {
-//                int count =  regionInfos.size();
-////                List<RegionInfo>  itemChangeList = new ArrayList<>();
-////                itemChangeList.addAll(regionInfos.subList(count - 10,count));
-//                Log.d("Listregion_last: " ,"-------->count:"+count+"size:"+itemChangeList.size()+" list"+itemChangeList.toString());
-//
-//
-//
-//                regionList.addAll(itemChangeList);
-//                itemChangeList.clear();
-//
-//                //resLocal.insertAll(regionInfos);
-//                     onDataReceived(regionList);
-//
-//
-//
-//
-//                Log.d("ListRegion: ","size: "+regionInfos.size()+regionInfos.toString());
-//                //Log.d("ListRegion: ","size: "+regionList.size()+regionList.toString());
-//
-//
-//
-//            }
-//
-//
-//        });
-//        viewRegionModel.getDataFromApiAndInsertToDb(offset).observe(MainActivity.this, new Observer<List<RegionInfo>>() {
-//            @Override
-//            public void onChanged(List<RegionInfo> regionInfos) {
-//              //  regionList.clear();
-//              //  regionList.addAll(regionInfos);
-//            //    onDataReceived(regionList);
-////                regionList.clear();
-////                regionList.addAll(regionInfos);
-////                onDataReceived(regionList);
-////                Log.d("REGION",regionInfos.toString() );
-//
-//
-//            }
-//        });
         loadMoreDataNO(offset);
 
 
@@ -236,9 +198,14 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Send
 
 
 
-
+                        int sizeOld = regionList.size();
                        regionList.addAll(regionInfoListfromGson);
                        regionListTemp.addAll(regionInfoListfromGson);
+                        int sizeNew = regionList.size();
+                        if(sizeOld <sizeNew){
+                            onDataReceived(regionList);
+
+                        }
                         onDataReceived(regionList);
                         regionInfoListfromGson.clear();
 
@@ -270,7 +237,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Send
     @Override
     protected void onPause() {
         super.onPause();
-      //  resLocal.deleteAllRegions();
 
 
 

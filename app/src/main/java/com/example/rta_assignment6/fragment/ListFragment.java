@@ -143,19 +143,14 @@ public void updateData(List<RegionInfo> newdata) {
             regionList.addAll(newdata);
 
             if (regionInfoAdapter == null) {
-                regionInfoAdapter = new RegionInfoAdapter(getContext(),regionList,this);
+                regionInfoAdapter = new RegionInfoAdapter(getContext(), regionList, this);
                 rvList.setAdapter(regionInfoAdapter);
             } else {
                 regionInfoAdapter.notifyDataSetChanged();
             }
 
 
-           // Toast.makeText(getContext(), regionList.size() + "update", Toast.LENGTH_SHORT).show();
-
-        } else {
-            //Toast.makeText(getContext(), "No data", Toast.LENGTH_SHORT).show();
         }
-
 }
 
 
@@ -221,94 +216,6 @@ public void updateData(List<RegionInfo> newdata) {
 
 
         }
-//        if (isConnected) {
-//
-//            Toast.makeText(getContext(), "gerrrr", Toast.LENGTH_SHORT).show();
-//
-//            //            offset +=10;
-//            //
-//            //            ((MainActivity) getActivity()).getViewRegionModel().getDataFromApiAndInsertToDb1(offset);
-//            //            offset = ((MainActivity) getActivity()).getViewRegionModel().getLastOffsset();
-//            AppDatabase db = AppDatabase.getDbInstance(getContext());
-//            //    if (db.regionInfoDao().getAllRegions().size() == (((MainActivity) getActivity()).getViewRegionModel().getLastOffsset()+10)){
-//            ((MainActivity) getActivity()).getViewRegionModel().getDataFromApiAndInsertToDb1(((MainActivity) getActivity()).getViewRegionModel().getLastOffsset() + 10);
-//
-//            Toast.makeText(getContext(), "Last" + ((MainActivity) getActivity()).getViewRegionModel().getLastOffsset(), Toast.LENGTH_SHORT).show();
-//
-//
-//            //            ((MainActivity) getActivity()).getViewRegionModel().getDataFromApiAndInsertToDb1(((MainActivity) getActivity()).getViewRegionModel().getLastOffsset()+10 );
-//            //            System.out.print("classofsset--->" + ((MainActivity) getActivity()).getViewRegionModel().getLastOffsset());
-//
-//
-//            Handler handler = new Handler();
-//            handler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//
-//                    progressBar.setVisibility(View.GONE);
-//
-//
-//                }
-//            }, 2000);
-//
-//
-//        } else {
-//
-//            Handler handler = new Handler();
-//            handler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//
-//                    if (isConnected) {
-//                        //((MainActivity) getActivity()).getViewRegionModel().getDataFromApiAndInsertToDb1(((MainActivity) getActivity()).getViewRegionModel().getLastOffsset());
-//
-//                    } else {
-//                       // Toast.makeText(getContext(), "call", Toast.LENGTH_SHORT).show();
-//                     //   ((MainActivity) getActivity()).getViewRegionLocalModel().getPaging(10, 20);
-//
-////                        mainActivity.getViewRegionLocalModel().getPaging(10,(((MainActivity) getActivity()).offset+10)).observe(getViewLifecycleOwner(), new Observer<List<RegionInfo>>() {
-////                            @Override
-////                            public void onChanged(List<RegionInfo> regionInfoList) {
-////                                // do something
-////                                List<RegionInfo> regionListTemp;
-////                                ((MainActivity) getActivity()).regionList.addAll(regionInfoList);
-////
-////                                ((MainActivity) getActivity()).onDataReceived(((MainActivity) getActivity()).regionList);
-////                                Log.d("thongu_frag", regionInfoList.toString());
-////                                Log.d("thongu_frag_size", String.valueOf(regionInfoList.size()));
-////                                Log.d("thongu_frag_offset: " ,String.valueOf(((MainActivity) getActivity()).offset));
-////
-////                            }
-////                        });
-//
-//
-//
-//
-//
-//
-////                        mainActivity.getViewRegionLocalModel().getPaging(10, ((MainActivity) getActivity()).offset).observe(getViewLifecycleOwner(), new Observer<List<RegionInfo>>() {
-////                            @Override
-////                            public void onChanged(List<RegionInfo> regionInfoList) {
-////                                // Do something with the updated data
-////                                Log.d("thongu_frag", regionInfoList.toString());
-////                               // regionList.addAll(regionInfoList);
-////
-////                             //((MainActivity) getActivity()).onDataReceived(regionList);
-////                            }
-////                        });
-//
-//                    }
-//
-//
-//                    progressBar.setVisibility(View.GONE);
-//                   // Toast.makeText(getContext(), "Can not refresh data", Toast.LENGTH_SHORT).show();
-//
-//
-//                }
-//            }, 2000);
-
- //       }
-
 
     }
 
