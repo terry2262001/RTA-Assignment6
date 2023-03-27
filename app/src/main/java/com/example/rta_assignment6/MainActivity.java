@@ -53,8 +53,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Send
     public List<RegionInfo> regionListTemp;
     ViewRegionModel viewRegionModel;
     public int offset = 0;
-    int lastOffset;
-    int check = 0;
     ViewRegionLocalModel viewRegionLocalModel;
     RegionInfoRepository resLocal;
     RequestQueue queue;
@@ -93,34 +91,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Send
                     loalDataFromAPI(offset);
                 }
 
-//                if (isConnected) {
-//                    if(resLocal.getCount() > 0 &&  regionList.size() <= resLocal.getCount() ){
-//                        regionList.clear();
-//                        loadMoreData(offset);
-//
-//                    }
-//                        else {
-//                        Toast.makeText(MainActivity.this, "loadapi ", Toast.LENGTH_SHORT).show();
-//                        loalDataFromAPI(offset);
-//
-//                    }
-//
-//
-//                } else {
-//
-//                    Toast.makeText(MainActivity.this, "Offline", Toast.LENGTH_SHORT).show();
-//                    if (resLocal.getCount() > 0) {
-//                        regionList.clear();
-//                        loadMoreData(offset);
-//
-//
-//                    } else {
-//                        Toast.makeText(MainActivity.this, "No data for loading  ", Toast.LENGTH_SHORT).show();
-//
-//                    }
-//
-//
-//                }
             }
         });
 
@@ -142,7 +112,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Send
     @Override
     public void onDataReceived(List<RegionInfo> data) {
         List<RegionInfo> datanew = new ArrayList<>(data);
-        Log.d("thongu_daa", data.toString());
         ListFragment fragment = (ListFragment) getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.vpAdd + ":" + 0);
         HomeFragment fragment2 = (HomeFragment) getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.vpAdd + ":" + 1);
         if (fragment != null && fragment.getView() != null && fragment2 != null && fragment2.getView() != null) {
@@ -156,7 +125,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Send
 
 
     public void loadMoreData(int offset) {
-        Log.d("thongu_daa_1", String.valueOf(offset));
         viewRegionLocalModel.getPaging(10, offset).observe(MainActivity.this, new Observer<List<RegionInfo>>() {
             @Override
             public void onChanged(List<RegionInfo> regionInfoList) {
@@ -174,7 +142,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Send
     }
 
     public void loalDataFromAPI(int offset) {
-        Log.d("thongu_daa_1api", String.valueOf(offset));
 
         loadMoreDataNO(offset);
 

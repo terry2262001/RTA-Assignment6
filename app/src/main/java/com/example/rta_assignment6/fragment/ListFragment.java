@@ -100,7 +100,7 @@ public class ListFragment extends Fragment implements RegionInfoAdapter.onItemCl
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvList.setLayoutManager(linearLayoutManager);
         rvList.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
-         regionList = new ArrayList<>();
+
         regionChildList = new ArrayList<>();
 
 
@@ -135,7 +135,6 @@ public class ListFragment extends Fragment implements RegionInfoAdapter.onItemCl
 
     }
 public void updateData(List<RegionInfo> newdata) {
-        Log.d("dataupdatae",newdata.toString());
 
 
         if (newdata.size() > 0) {

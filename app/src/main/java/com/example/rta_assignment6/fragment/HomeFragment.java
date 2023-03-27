@@ -40,13 +40,11 @@ import java.util.List;
 public class HomeFragment extends Fragment implements OnMapReadyCallback, LocationListener {
     GoogleMap mMap;
     SupportMapFragment mapFragment;
-    RegionInfo loadRegion;
-    double La, Long;
     RequestQueue queue;
     ArrayList<RegionInfo> regionList;
     DataListener dataListener;
     private ClusterManager<MyItem> clusterManager;
-    private boolean isDataReady = false; //
+    private boolean isDataReady = false;
 
 
     @Override
@@ -127,7 +125,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Locati
         }
 
         regionList.addAll(newdata);
-        System.out.println("->>>>>>>>>>----"+regionList.size());
         addItems(mMap);
         isDataReady = true;
 
@@ -160,7 +157,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Locati
                     return false;
                 }
             });
-           // mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(getContext()));
             map.setOnCameraIdleListener(clusterManager);
             map.setOnMarkerClickListener(clusterManager);
 
